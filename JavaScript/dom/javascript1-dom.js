@@ -241,8 +241,21 @@ window.addEventListener("load", function(){
     };
 
     swapButton.onclick = function(){
-                
+        var inputs = tbody.querySelectorAll("input[type='checkbox']:checked");
+        if(inputs.length != 2)
+        {
+            alert("두개를 선택하세요");
+            return;
+        }
         
+        var trs = [];
+        trs.push(inputs[0].parentElement.parentElement);
+        trs.push(inputs[1].parentElement.parentElement);
+
+        var cloneNode = trs[0].cloneNode(true);
+        trs[1].replaceWith(cloneNode);
+        trs[0].replaceWith(trs[1])
+
     };
 
 });
@@ -289,6 +302,23 @@ window.addEventListener("load", function(){
 
     titldTd.onclick = function(){
         // 이 부분에 새로 배운 내용을 작성해 보세요.
-       
+        tbodyNode.innerHTML ="";
+
+        if(!titleSorted)
+        {
+            notices.sort(function(a,b){
+                titleSorted = true;
+     
+                 if(a.title < b.title)
+                     return -1;
+                 else if(a.titls > b.title)
+                     return 1;
+                 else
+                     return 0;
+            });
+        }
+        else
+            notices.reverse();
+        bindData();
     };
 });
